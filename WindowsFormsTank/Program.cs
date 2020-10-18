@@ -12,7 +12,7 @@ namespace WindowsFormsTank
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormTank());
+            Application.Run(new FormParking());
         }
     }
 }

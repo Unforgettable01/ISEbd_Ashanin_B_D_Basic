@@ -131,7 +131,6 @@
             this.Name = "FormTank";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tank";
-            //  this.Load += new System.EventHandler(this.FormTank_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTank)).EndInit();
             this.ResumeLayout(false);
 
