@@ -58,7 +58,7 @@ namespace WindowsFormsTank
                 if (p._places[i] == null)
                 {
 
-                    armoredVehicle.SetPosition(p._placeSizeWidth , p._placeSizeHeight , p.pictureWidth, p.pictureHeight);
+                    armoredVehicle.SetPosition(10 + p._placeSizeWidth * (int)(i / (int)(p.pictureHeight / p._placeSizeHeight)), 5 + p._placeSizeHeight * (int)(i % (int)(p.pictureHeight / p._placeSizeHeight)), p.pictureWidth, p.pictureHeight);
 
                     p._places[i] = armoredVehicle;
                     return true;
