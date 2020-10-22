@@ -23,7 +23,7 @@ namespace WindowsFormsTank
         /// <summary>
         /// Размер парковочного места (ширина)
         /// </summary>
-        private readonly int _placeSizeWidth = 540;
+        private readonly int _placeSizeWidth = 550;
         /// <summary>
         /// Размер парковочного места (высота)
         /// </summary>

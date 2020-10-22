@@ -111,8 +111,8 @@ namespace WindowsFormsTank
             if (BigGun)
             {
                 Brush mainColorGun = new SolidBrush(MainColor);
-                g.DrawRectangle(pen, _startPosX - 20, _startPosY + 20, 95, 10);              //большое орудие
-                g.FillRectangle(mainColorGun, _startPosX - 20, _startPosY + 20, 95, 10);    //большое орудие
+                g.DrawRectangle(pen, _startPosX - 5, _startPosY + 20, 95, 10);              //большое орудие
+                g.FillRectangle(mainColorGun, _startPosX - 5, _startPosY + 20, 95, 10);    //большое орудие
             }
             base.DrawTransport(g);
 
