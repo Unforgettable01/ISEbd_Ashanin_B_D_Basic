@@ -31,13 +31,11 @@ namespace WindowsFormsTank
             {
                 listBoxParkings.Items.Add(parkingCollection.Keys[i]);
             }
-            if (listBoxParkings.Items.Count > 0 && (index == -1 || index >=
-           listBoxParkings.Items.Count))
+            if (listBoxParkings.Items.Count > 0 && (index == -1 || index >= listBoxParkings.Items.Count))
             {
                 listBoxParkings.SelectedIndex = 0;
             }
-            else if (listBoxParkings.Items.Count > 0 && index > -1 && index <
-           listBoxParkings.Items.Count)
+            else if (listBoxParkings.Items.Count > 0 && index > -1 && index < listBoxParkings.Items.Count)
             {
                 listBoxParkings.SelectedIndex = index;
             }
@@ -50,9 +48,9 @@ namespace WindowsFormsTank
         {
             if (listBoxParkings.SelectedIndex > -1)
             {//если выбран один из пуктов в listBox (при старте программы ни один пункт
-                //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу
-                  //  listBox)
-            Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
+             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу
+             //  listBox)
+                Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
                 Graphics gr = Graphics.FromImage(bmp);
                 parkingCollection[listBoxParkings.SelectedItem.ToString()].Draw(gr);
                 pictureBoxParking.Image = bmp;
@@ -86,8 +84,8 @@ namespace WindowsFormsTank
         {
             if (listBoxParkings.SelectedIndex > -1)
             {
-                if (MessageBox.Show($"Удалить парковку { listBoxParkings.SelectedItem.ToString()}?", "Удаление" , MessageBoxButtons.YesNo ,
-           MessageBoxIcon.Question) == DialogResult.Yes)         
+                if (MessageBox.Show($"Удалить парковку { listBoxParkings.SelectedItem.ToString()}?", "Удаление", MessageBoxButtons.YesNo,
+           MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     parkingCollection.DelParking(textBoxNumberParking.Text);
                     ReloadLevels();
@@ -163,6 +161,6 @@ namespace WindowsFormsTank
             }
         }
 
-        
+
     }
 }

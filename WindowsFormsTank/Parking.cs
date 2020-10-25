@@ -89,11 +89,12 @@ namespace WindowsFormsTank
         /// <param name="g"></param>
         public void Draw(Graphics g)
         {
+            
+            
             DrawMarking(g);
             for (int i = 0; i < _places.Count; ++i)
             {
-                _places[i].SetPosition(5 + i / 5 * _placeSizeWidth + 5, i % 5 *
-               _placeSizeHeight + 15, pictureWidth, pictureHeight);
+                _places[i].SetPosition(10 + _placeSizeWidth * (int)(i / (int)(pictureHeight / _placeSizeHeight)), 5 + _placeSizeHeight * (int)(i % (int)(pictureHeight / _placeSizeHeight)), pictureWidth, pictureHeight);
                 _places[i].DrawTransport(g);
             }
 
