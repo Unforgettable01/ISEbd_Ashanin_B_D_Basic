@@ -9,25 +9,92 @@ namespace WindowsFormsTank
         /// <summary>
         /// Объект от класса-парковки
         /// </summary>
-        private readonly Parking<ArmoredVehicle> parking;
+        private readonly ParkingCollection parkingCollection;
 
         public FormParking()
         {
             InitializeComponent();
-            parking = new Parking<ArmoredVehicle>(pictureBoxParking.Width,
+            parkingCollection = new ParkingCollection(pictureBoxParking.Width,
            pictureBoxParking.Height);
             Draw();
         }
+
+
+
+        /// Заполнение listBoxLevels
+        /// </summary>
+        private void ReloadLevels()
+        {
+            int index = listBoxParkings.SelectedIndex;
+            listBoxParkings.Items.Clear();
+            for (int i = 0; i < parkingCollection.Keys.Count; i++)
+            {
+                listBoxParkings.Items.Add(parkingCollection.Keys[i]);
+            }
+            if (listBoxParkings.Items.Count > 0 && (index == -1 || index >=
+           listBoxParkings.Items.Count))
+            {
+                listBoxParkings.SelectedIndex = 0;
+            }
+            else if (listBoxParkings.Items.Count > 0 && index > -1 && index <
+           listBoxParkings.Items.Count)
+            {
+                listBoxParkings.SelectedIndex = index;
+            }
+        }
+
         /// <summary>
         /// Метод отрисовки парковки
         /// </summary>
         private void Draw()
         {
+            if (listBoxParkings.SelectedIndex > -1)
+            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
+                //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу
+                  //  listBox)
             Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            parking.Draw(gr);
-            pictureBoxParking.Image = bmp;
+                Graphics gr = Graphics.FromImage(bmp);
+                parkingCollection[listBoxParkings.SelectedItem.ToString()].Draw(gr);
+                pictureBoxParking.Image = bmp;
+            }
         }
+
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Добавить парковку"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void buttonAddParking_Click1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxNumberParking.Text))
+            {
+                MessageBox.Show("Введите название парковки", "Ошибка",
+               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            parkingCollection.AddParking(textBoxNumberParking.Text);
+            ReloadLevels();
+        }
+        /// <summary>
+        /// Обработка нажатия кнопки "Удалить парковку"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonDelParking_Click1(object sender, EventArgs e)
+        {
+            if (listBoxParkings.SelectedIndex > -1)
+            {
+                if (MessageBox.Show($"Удалить парковку { listBoxParkings.SelectedItem.ToString()}?", "Удаление" , MessageBoxButtons.YesNo ,
+           MessageBoxIcon.Question) == DialogResult.Yes)         
+                {
+                    parkingCollection.DelParking(textBoxNumberParking.Text);
+                    ReloadLevels();
+                }
+            }
+        }
+
         /// <summary>
         /// Обработка нажатия кнопки "Припарковать транспорт"
         /// </summary>
@@ -40,7 +107,7 @@ namespace WindowsFormsTank
             {
                 var armoredVehicle = new ArmoredVehicle(100, 1000, dialog.Color);
 
-                if (parking + armoredVehicle)
+                if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
                 {
                     Draw();
                 }
@@ -65,7 +132,7 @@ namespace WindowsFormsTank
                 {
                     var armoredVehicle = new Tank(100, 1000, dialog.Color, dialogDop.Color,
                    true, true, true, true, true);
-                    if (parking + armoredVehicle)
+                    if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
                     {
                         Draw();
                     }
@@ -85,7 +152,7 @@ namespace WindowsFormsTank
         {
             if (maskedTextBoxParkingNumber.Text != "")
             {
-                var armoredVehicle = parking - Convert.ToInt32(maskedTextBoxParkingNumber.Text);
+                var armoredVehicle = parkingCollection[listBoxParkings.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxParkingNumber.Text);
                 if (armoredVehicle != null)
                 {
                     FormTank form = new FormTank();
@@ -96,6 +163,6 @@ namespace WindowsFormsTank
             }
         }
 
-
+        
     }
 }

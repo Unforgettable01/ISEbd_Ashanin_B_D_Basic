@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace WindowsFormsTank
 {
@@ -11,7 +12,11 @@ namespace WindowsFormsTank
         /// <summary>
         /// Массив объектов, которые храним
         /// </summary>
-        private readonly T[] _places;
+        private readonly List<T> _places;
+        /// <summary>
+        /// Максимальное количество мест на парковке
+        /// </summary>
+        private readonly int _maxCount;
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -38,7 +43,8 @@ namespace WindowsFormsTank
         {
             int width = picWidth / _placeSizeWidth;
             int height = picHeight / _placeSizeHeight;
-            _places = new T[width * height];
+            _maxCount = width * height;
+            _places = new List<T>();
             pictureWidth = picWidth;
             pictureHeight = picHeight;
         }
@@ -51,23 +57,13 @@ namespace WindowsFormsTank
         /// <returns></returns>
         public static bool operator +(Parking<T> p, T armoredVehicle)
         {
-
-
-            for (int i = 0; i < p._places.Length; i++)
+            if (p._places.Count >= p._maxCount)
             {
-                if (p._places[i] == null)
-                {
-
-                    armoredVehicle.SetPosition(10 + p._placeSizeWidth * (int)(i / (int)(p.pictureHeight / p._placeSizeHeight)), 5 + p._placeSizeHeight * (int)(i % (int)(p.pictureHeight / p._placeSizeHeight)), p.pictureWidth, p.pictureHeight);
-
-                    p._places[i] = armoredVehicle;
-                    return true;
-                }
-
+                return false;
             }
+            else p._places.Add(armoredVehicle);
+            return true;
 
-
-            return false;
         }
         /// <summary>
         /// Перегрузка оператора вычитания
@@ -79,15 +75,13 @@ namespace WindowsFormsTank
         /// <returns></returns>
         public static T operator -(Parking<T> p, int index)
         {
-            if (index < -1 || index > p._places.Length)
+            if (index < -1 || index > p._places.Count)
             {
                 return null;
             }
             T armoredVehicle = p._places[index];
-            p._places[index] = null;
-
+            p._places.RemoveAt(index);
             return armoredVehicle;
-            // Прописать логику для вычитания
         }
         /// <summary>
         /// Метод отрисовки парковки
@@ -96,10 +90,13 @@ namespace WindowsFormsTank
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
+            for (int i = 0; i < _places.Count; ++i)
             {
-                _places[i]?.DrawTransport(g);
+                _places[i].SetPosition(5 + i / 5 * _placeSizeWidth + 5, i % 5 *
+               _placeSizeHeight + 15, pictureWidth, pictureHeight);
+                _places[i].DrawTransport(g);
             }
+
         }
         /// <summary>
         /// Метод отрисовки разметки парковочных мест
