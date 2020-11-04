@@ -44,7 +44,6 @@ namespace WindowsFormsTank
 
         public Tank(int maxSpeed, float weight, Color mainColor, Color dopColor, bool frontShield, bool leftShield, bool rightShield, bool dopWheel, bool bigGun) :
             base(maxSpeed, weight, mainColor, 290, 200)
-
         {
             DopColor = dopColor;
             FrontShield = frontShield;
@@ -53,7 +52,6 @@ namespace WindowsFormsTank
             DopWheel = dopWheel;
             BigGun = bigGun;
         }
-
 
         /// <summary>
         /// Отрисовка танка
@@ -107,15 +105,22 @@ namespace WindowsFormsTank
                 g.FillEllipse(brGreyWheel, _startPosX + 230, _startPosY + 140, 30, 30); //  №6
             }
 
-
             if (BigGun)
             {
                 Brush mainColorGun = new SolidBrush(MainColor);
                 g.DrawRectangle(pen, _startPosX - 20, _startPosY + 20, 95, 10);              //большое орудие
                 g.FillRectangle(mainColorGun, _startPosX - 20, _startPosY + 20, 95, 10);    //большое орудие
             }
-            base.DrawTransport(g);
+            base.DrawTransport(g);            
+        }
 
+        /// <summary>
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
         }
     }
 }
