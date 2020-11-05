@@ -20,10 +20,10 @@ namespace WindowsFormsTank
         /// </summary>
         private readonly int pictureWidth;
 
- /// <summary>
- /// Высота окна отрисовки
- /// </summary>
- private readonly int pictureHeight;
+        /// <summary>
+        /// Высота окна отрисовки
+        /// </summary>
+        private readonly int pictureHeight;
         /// <summary>
         /// Конструктор
         /// </summary>

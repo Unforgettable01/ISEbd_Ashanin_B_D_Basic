@@ -145,6 +145,7 @@
             this.listBoxParkings.Name = "listBoxParkings";
             this.listBoxParkings.Size = new System.Drawing.Size(212, 104);
             this.listBoxParkings.TabIndex = 7;
+            this.listBoxParkings.SelectedIndexChanged += new System.EventHandler(this.listBoxParkings_SelectedIndexChanged);
             // 
             // buttonDelParking
             // 
@@ -160,6 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1762, 689);
             this.Controls.Add(this.buttonDelParking);
             this.Controls.Add(this.listBoxParkings);
