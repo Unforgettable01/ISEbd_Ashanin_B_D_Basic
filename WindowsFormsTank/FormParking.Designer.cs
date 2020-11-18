@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.pictureBoxParking = new System.Windows.Forms.PictureBox();
-            this.buttonParkingArmoredVehicle = new System.Windows.Forms.Button();
-            this.buttonParkingTank = new System.Windows.Forms.Button();
             this.groupBoxForGetVehicle = new System.Windows.Forms.GroupBox();
             this.buttonGetVehicle = new System.Windows.Forms.Button();
             this.maskedTextBoxParkingNumber = new System.Windows.Forms.MaskedTextBox();
@@ -40,6 +38,7 @@
             this.buttonAddParking = new System.Windows.Forms.Button();
             this.listBoxParkings = new System.Windows.Forms.ListBox();
             this.buttonDelParking = new System.Windows.Forms.Button();
+            this.buttonAddVehicle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             this.groupBoxForGetVehicle.SuspendLayout();
             this.SuspendLayout();
@@ -52,26 +51,6 @@
             this.pictureBoxParking.Size = new System.Drawing.Size(1697, 676);
             this.pictureBoxParking.TabIndex = 0;
             this.pictureBoxParking.TabStop = false;
-            // 
-            // buttonParkingArmoredVehicle
-            // 
-            this.buttonParkingArmoredVehicle.Location = new System.Drawing.Point(1569, 307);
-            this.buttonParkingArmoredVehicle.Name = "buttonParkingArmoredVehicle";
-            this.buttonParkingArmoredVehicle.Size = new System.Drawing.Size(129, 56);
-            this.buttonParkingArmoredVehicle.TabIndex = 1;
-            this.buttonParkingArmoredVehicle.Text = "Припарковать брон.машину";
-            this.buttonParkingArmoredVehicle.UseVisualStyleBackColor = true;
-            this.buttonParkingArmoredVehicle.Click += new System.EventHandler(this.buttonParkingArmoredVehicle_Click);
-            // 
-            // buttonParkingTank
-            // 
-            this.buttonParkingTank.Location = new System.Drawing.Point(1570, 369);
-            this.buttonParkingTank.Name = "buttonParkingTank";
-            this.buttonParkingTank.Size = new System.Drawing.Size(128, 56);
-            this.buttonParkingTank.TabIndex = 2;
-            this.buttonParkingTank.Text = "Припарковать танк";
-            this.buttonParkingTank.UseVisualStyleBackColor = true;
-            this.buttonParkingTank.Click += new System.EventHandler(this.buttonParkingTank_Click);
             // 
             // groupBoxForGetVehicle
             // 
@@ -145,6 +124,7 @@
             this.listBoxParkings.Name = "listBoxParkings";
             this.listBoxParkings.Size = new System.Drawing.Size(212, 104);
             this.listBoxParkings.TabIndex = 7;
+            this.listBoxParkings.SelectedIndexChanged += new System.EventHandler(this.listBoxParkings_SelectedIndexChanged);
             // 
             // buttonDelParking
             // 
@@ -156,19 +136,28 @@
             this.buttonDelParking.UseVisualStyleBackColor = true;
             this.buttonDelParking.Click += new System.EventHandler(this.buttonDelParking_Click1);
             // 
+            // buttonAddVehicle
+            // 
+            this.buttonAddVehicle.Location = new System.Drawing.Point(1572, 351);
+            this.buttonAddVehicle.Name = "buttonAddVehicle";
+            this.buttonAddVehicle.Size = new System.Drawing.Size(149, 53);
+            this.buttonAddVehicle.TabIndex = 9;
+            this.buttonAddVehicle.Text = "Добавить ";
+            this.buttonAddVehicle.UseVisualStyleBackColor = true;
+            this.buttonAddVehicle.Click += new System.EventHandler(this.buttonAddVehicle_Click);
+            // 
             // FormParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1762, 689);
+            this.Controls.Add(this.buttonAddVehicle);
             this.Controls.Add(this.buttonDelParking);
             this.Controls.Add(this.listBoxParkings);
             this.Controls.Add(this.buttonAddParking);
             this.Controls.Add(this.textBoxNumberParking);
             this.Controls.Add(this.labelParkingName);
             this.Controls.Add(this.groupBoxForGetVehicle);
-            this.Controls.Add(this.buttonParkingTank);
-            this.Controls.Add(this.buttonParkingArmoredVehicle);
             this.Controls.Add(this.pictureBoxParking);
             this.Name = "FormParking";
             this.Text = "Парковка";
@@ -183,8 +172,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxParking;
-        private System.Windows.Forms.Button buttonParkingArmoredVehicle;
-        private System.Windows.Forms.Button buttonParkingTank;
         private System.Windows.Forms.GroupBox groupBoxForGetVehicle;
         private System.Windows.Forms.Label labelParkingNumber;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxParkingNumber;
@@ -194,5 +181,6 @@
         private System.Windows.Forms.Button buttonAddParking;
         private System.Windows.Forms.ListBox listBoxParkings;
         private System.Windows.Forms.Button buttonDelParking;
+        private System.Windows.Forms.Button buttonAddVehicle;
     }
 }

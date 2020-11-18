@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsTank
 {
+    public delegate void VehicleDelegate(Vehicle vehicle);
     static class Program
     {
         [STAThread]

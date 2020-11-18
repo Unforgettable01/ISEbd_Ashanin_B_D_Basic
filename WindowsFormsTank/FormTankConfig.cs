@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsFormsTank
@@ -8,13 +9,18 @@ namespace WindowsFormsTank
         /// <summary>
         /// Переменная-выбранная машина
         /// </summary>
-        ITransport vehicle = null;
+        Vehicle vehicle = null;
+
+        private event VehicleDelegate eventAddVehicle;
+
         public FormTankConfig()
         {
             InitializeComponent();
+
+            buttonCancle.Click += (object sender, EventArgs e) => { Close(); };
         }
         /// <summary>
-        /// Отрисовать брон.машину
+        /// Отрисовать машину
         /// </summary>
         private void DrawVehicle()
         {
@@ -27,16 +33,33 @@ namespace WindowsFormsTank
                 pictureBoxForDisplayVehicle.Image = bmp;
             }
         }
+
+        /// <summary>
+        /// Добавление события
+        /// </summary>
+        /// <param name="ev"></param>
+        public void AddEvent(VehicleDelegate ev)
+        {
+            if (eventAddVehicle == null)
+            {
+                eventAddVehicle = new VehicleDelegate(ev);
+            }
+            else
+            {
+                eventAddVehicle += ev;
+            }
+        }
+
         /// <summary>
         /// Передаем информацию при нажатии на Label
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void labelArmoredVevicle_MouseDown(object sender, MouseEventArgs e)
+        private void labelArmoredVehicle_MouseDown(object sender, MouseEventArgs e)
         {
             labelArmoredVehicle.DoDragDrop(labelArmoredVehicle.Text, DragDropEffects.Move |
            DragDropEffects.Copy);
-            }
+        }
         /// <summary>
         /// Передаем информацию при нажатии на Label
         /// </summary>
@@ -63,6 +86,8 @@ namespace WindowsFormsTank
                 e.Effect = DragDropEffects.None;
             }
         }
+        
+
         /// <summary>
         /// Действия при приеме перетаскиваемой информации
         /// </summary>
@@ -73,15 +98,16 @@ namespace WindowsFormsTank
             switch (e.Data.GetData(DataFormats.Text).ToString())
             {
                 case "Брон.машина":
-                    vehicle = new ArmoredVehicle(100, 500, Color.White);
+
+                    vehicle = new ArmoredVehicle((int)numericUpDown_MaxSpeed.Value, (int)numericUpDown_WeightVehicle.Value, Color.White);
                     break;
                 case "Танк":
-                    vehicle = new Tank(100, 500, Color.White, Color.Black, true, true,true,true,true);
+                    vehicle = new Tank((int)numericUpDown_MaxSpeed.Value,
+                   (int)numericUpDown_WeightVehicle.Value, Color.White, Color.Black, CheckBoxFrontShield.Checked, checkBoxSideShield.Checked, checkBoxBackShield.Checked, checkBoxDopWheel.Checked, checkBoxTopGun.Checked);
                     break;
             }
             DrawVehicle();
         }
-
         /// <summary>
         /// Отправляем цвет с панели
         /// </summary>

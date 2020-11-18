@@ -161,6 +161,40 @@ namespace WindowsFormsTank
             }
         }
 
+        private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
+        }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Добавить автомобиль"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonAddVehicle_Click(object sender, EventArgs e)
+        {
+            var formTankConfig = new FormTankConfig();
+            formTankConfig.AddEvent(AddVehicle);
+            formTankConfig.Show();
+        }
+        /// <summary>
+        /// Метод добавления машины
+        /// </summary>
+        /// <param name="vehicle"></param>
+        private void AddVehicle(Vehicle vehicle)
+        {
+            if (vehicle != null && listBoxParkings.SelectedIndex > -1)
+            {
+                if ((parkingCollection[listBoxParkings.SelectedItem.ToString()]) + vehicle)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Машину не удалось поставить");
+                }
+            }
+        }
 
     }
 }
