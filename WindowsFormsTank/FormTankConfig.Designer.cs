@@ -44,17 +44,17 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelForPictureBox = new System.Windows.Forms.Panel();
             this.groupBoxForColor = new System.Windows.Forms.GroupBox();
+            this.panelTestColor = new System.Windows.Forms.Panel();
             this.labelDopColor = new System.Windows.Forms.Label();
-            this.labelBaseColor = new System.Windows.Forms.Label();
+            this.labelMainColor = new System.Windows.Forms.Label();
+            this.panelRed = new System.Windows.Forms.Panel();
             this.panelHaki = new System.Windows.Forms.Panel();
             this.panelGrey = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panelBlue = new System.Windows.Forms.Panel();
             this.panelBrown = new System.Windows.Forms.Panel();
             this.panelGreen = new System.Windows.Forms.Panel();
             this.panelBlack = new System.Windows.Forms.Panel();
             this.panelYellow = new System.Windows.Forms.Panel();
-            this.panelRed = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonCancle = new System.Windows.Forms.Button();
@@ -65,7 +65,6 @@
             this.groupBox1.SuspendLayout();
             this.panelForPictureBox.SuspendLayout();
             this.groupBoxForColor.SuspendLayout();
-            this.panelGrey.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxParametrs
@@ -210,7 +209,7 @@
             // labelArmoredVehicle
             // 
             this.labelArmoredVehicle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelArmoredVehicle.Location = new System.Drawing.Point(47, 35);
+            this.labelArmoredVehicle.Location = new System.Drawing.Point(47, 22);
             this.labelArmoredVehicle.Name = "labelArmoredVehicle";
             this.labelArmoredVehicle.Size = new System.Drawing.Size(111, 36);
             this.labelArmoredVehicle.TabIndex = 2;
@@ -252,8 +251,10 @@
             // 
             // groupBoxForColor
             // 
+            this.groupBoxForColor.Controls.Add(this.panelTestColor);
             this.groupBoxForColor.Controls.Add(this.labelDopColor);
-            this.groupBoxForColor.Controls.Add(this.labelBaseColor);
+            this.groupBoxForColor.Controls.Add(this.labelMainColor);
+            this.groupBoxForColor.Controls.Add(this.panelRed);
             this.groupBoxForColor.Controls.Add(this.panelHaki);
             this.groupBoxForColor.Controls.Add(this.panelGrey);
             this.groupBoxForColor.Controls.Add(this.panelBlue);
@@ -261,7 +262,6 @@
             this.groupBoxForColor.Controls.Add(this.panelGreen);
             this.groupBoxForColor.Controls.Add(this.panelBlack);
             this.groupBoxForColor.Controls.Add(this.panelYellow);
-            this.groupBoxForColor.Controls.Add(this.panelRed);
             this.groupBoxForColor.Controls.Add(this.panel1);
             this.groupBoxForColor.Location = new System.Drawing.Point(1145, 12);
             this.groupBoxForColor.Name = "groupBoxForColor";
@@ -269,6 +269,14 @@
             this.groupBoxForColor.TabIndex = 6;
             this.groupBoxForColor.TabStop = false;
             this.groupBoxForColor.Text = "Цвета";
+            // 
+            // panelTestColor
+            // 
+            this.panelTestColor.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panelTestColor.Location = new System.Drawing.Point(97, 154);
+            this.panelTestColor.Name = "panelTestColor";
+            this.panelTestColor.Size = new System.Drawing.Size(51, 24);
+            this.panelTestColor.TabIndex = 10;
             // 
             // labelDopColor
             // 
@@ -278,15 +286,28 @@
             this.labelDopColor.Size = new System.Drawing.Size(80, 69);
             this.labelDopColor.TabIndex = 9;
             this.labelDopColor.Text = "Доп.   цвет";
+            this.labelDopColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragDrop);
+            this.labelDopColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
             // 
-            // labelBaseColor
+            // labelMainColor
             // 
-            this.labelBaseColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelBaseColor.Location = new System.Drawing.Point(7, 26);
-            this.labelBaseColor.Name = "labelBaseColor";
-            this.labelBaseColor.Size = new System.Drawing.Size(84, 69);
-            this.labelBaseColor.TabIndex = 8;
-            this.labelBaseColor.Text = "Основной          цвет";
+            this.labelMainColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMainColor.Location = new System.Drawing.Point(6, 26);
+            this.labelMainColor.Name = "labelMainColor";
+            this.labelMainColor.Size = new System.Drawing.Size(86, 69);
+            this.labelMainColor.TabIndex = 8;
+            this.labelMainColor.Text = "Основной        цвет";
+            this.labelMainColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragDrop);
+            this.labelMainColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragDrop);
+            // 
+            // panelRed
+            // 
+            this.panelRed.BackColor = System.Drawing.Color.Red;
+            this.panelRed.Location = new System.Drawing.Point(6, 109);
+            this.panelRed.Name = "panelRed";
+            this.panelRed.Size = new System.Drawing.Size(40, 39);
+            this.panelRed.TabIndex = 1;
+            this.panelRed.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
             // 
             // panelHaki
             // 
@@ -299,18 +320,10 @@
             // panelGrey
             // 
             this.panelGrey.BackColor = System.Drawing.Color.Silver;
-            this.panelGrey.Controls.Add(this.panel2);
             this.panelGrey.Location = new System.Drawing.Point(98, 177);
             this.panelGrey.Name = "panelGrey";
             this.panelGrey.Size = new System.Drawing.Size(38, 41);
             this.panelGrey.TabIndex = 6;
-            // 
-            // panel2
-            // 
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 100);
-            this.panel2.TabIndex = 0;
             // 
             // panelBlue
             // 
@@ -352,14 +365,6 @@
             this.panelYellow.Size = new System.Drawing.Size(38, 39);
             this.panelYellow.TabIndex = 2;
             // 
-            // panelRed
-            // 
-            this.panelRed.BackColor = System.Drawing.Color.Red;
-            this.panelRed.Location = new System.Drawing.Point(6, 109);
-            this.panelRed.Name = "panelRed";
-            this.panelRed.Size = new System.Drawing.Size(40, 39);
-            this.panelRed.TabIndex = 1;
-            // 
             // panel1
             // 
             this.panel1.Location = new System.Drawing.Point(185, 307);
@@ -375,6 +380,7 @@
             this.buttonAdd.TabIndex = 7;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonCancle
             // 
@@ -407,7 +413,6 @@
             this.groupBox1.ResumeLayout(false);
             this.panelForPictureBox.ResumeLayout(false);
             this.groupBoxForColor.ResumeLayout(false);
-            this.panelGrey.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -431,10 +436,9 @@
         private System.Windows.Forms.Panel panelForPictureBox;
         private System.Windows.Forms.GroupBox groupBoxForColor;
         private System.Windows.Forms.Label labelDopColor;
-        private System.Windows.Forms.Label labelBaseColor;
+        private System.Windows.Forms.Label labelMainColor;
         private System.Windows.Forms.Panel panelHaki;
         private System.Windows.Forms.Panel panelGrey;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelBlue;
         private System.Windows.Forms.Panel panelBrown;
         private System.Windows.Forms.Panel panelGreen;
@@ -444,5 +448,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonCancle;
+        private System.Windows.Forms.Panel panelTestColor;
     }
 }
