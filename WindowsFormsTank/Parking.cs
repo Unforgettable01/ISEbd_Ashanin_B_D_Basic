@@ -90,7 +90,6 @@ namespace WindowsFormsTank
         public void Draw(Graphics g)
         {
             
-            
             DrawMarking(g);
             for (int i = 0; i < _places.Count; ++i)
             {

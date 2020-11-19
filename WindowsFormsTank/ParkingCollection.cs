@@ -92,6 +92,8 @@ namespace WindowsFormsTank
         /// </summary>
         /// <param name="text">Строка, которую следует записать</param>
         /// <param name="stream">Поток для записи</param>
+        /// 
+
         private void WriteToFile(string text, FileStream stream)
         {
             byte[] info = new UTF8Encoding(true).GetBytes(text);
@@ -106,6 +108,45 @@ namespace WindowsFormsTank
         /// <returns></returns>
         public bool SaveData(string filename)
         {
+            //if (File.Exists(filename))
+            //{
+            //    File.Delete(filename);
+            //}
+            //using (StreamWriter fs = new StreamWriter(filename))
+            //{
+            //    fs.WriteLine($"ParkingCollection");
+            //    foreach (var level in parkingStages)
+            //    {
+            //        //Начинаем парковку
+            //        fs.WriteLine($"Parking{separator}{level.Key}");
+
+            //        ITransport vehicle = null;
+            //        for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
+            //        {
+            //            if (vehicle != null)
+            //            {
+            //                //если место не пустое
+            //                //Записываем тип машины
+            //                if (vehicle.GetType().Name == "ArmoredVehicle")
+            //                {
+            //                    fs.WriteLine($"ArmoredVehicle{separator}");
+            //                }
+            //                if (vehicle.GetType().Name == "Tank")
+            //                {
+            //                    fs.WriteLine($"Tank{separator}");
+            //                }
+            //                //Записываемые параметры
+            //                fs.WriteLine(vehicle + Environment.NewLine);
+            //            }
+            //        }
+            //    }
+            //}
+            //return true;
+
+
+
+
+
             if (File.Exists(filename))
             {
                 File.Delete(filename);
@@ -120,14 +161,15 @@ namespace WindowsFormsTank
                     fs);
                     ITransport vehicle = null;
                     for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
-                    {
+                        
+                {
                         if (vehicle != null)
                         {
                             //если место не пустое
                             //Записываем тип машины
                             if (vehicle.GetType().Name == "ArmoredVehicle")
                             {
-                                WriteToFile($"ArmoredVehicle{separator}", fs);
+                                WriteToFile($"Car{separator}", fs);
                             }
                             if (vehicle.GetType().Name == "Tank")
                             {
