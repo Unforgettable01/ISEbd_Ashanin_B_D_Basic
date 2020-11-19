@@ -17,25 +17,15 @@ namespace WindowsFormsTank
         {
             InitializeComponent();
 
-            //foreach (var item in groupBoxForColor.Controls)
-            //{
-            //    if (item is Panel)
-            //    {
-            //        ((Panel)item).MouseDown += panelColor_MouseDown;
-            //    }       
-            //}
 
-            this.panelTestColor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-
-
-            this.panelRed.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelYellow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelBrown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelBlue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelBlack.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelGrey.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelGreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
-            this.panelHaki.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelColor_MouseDown);
+            panelRed.MouseDown += panelColor_MouseDown;
+            panelYellow.MouseDown += panelColor_MouseDown;
+            panelBrown.MouseDown += panelColor_MouseDown;
+            panelBlue.MouseDown += panelColor_MouseDown;
+            panelBlack.MouseDown += panelColor_MouseDown;
+            panelGrey.MouseDown += panelColor_MouseDown;
+            panelGreen.MouseDown += panelColor_MouseDown;
+            panelHaki.MouseDown +=panelColor_MouseDown;
 
             buttonCancle.Click += (object sender, EventArgs e) => { Close(); };
         }
