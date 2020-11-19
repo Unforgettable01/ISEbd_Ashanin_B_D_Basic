@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace WindowsFormsTank
 {
@@ -52,6 +53,28 @@ namespace WindowsFormsTank
             DopWheel = dopWheel;
             BigGun = bigGun;
         }
+
+        /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info"></param>
+        public Tank(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 9)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                FrontShield = Convert.ToBoolean(strs[4]);
+                LeftShield = Convert.ToBoolean(strs[5]);
+                RightShield = Convert.ToBoolean(strs[6]);
+                DopWheel = Convert.ToBoolean(strs[7]);
+                BigGun = Convert.ToBoolean(strs[8]);
+            }
+        }
+
 
         /// <summary>
         /// Отрисовка танка
@@ -111,7 +134,7 @@ namespace WindowsFormsTank
                 g.DrawRectangle(pen, _startPosX - 20, _startPosY + 20, 95, 10);              //большое орудие
                 g.FillRectangle(mainColorGun, _startPosX - 20, _startPosY + 20, 95, 10);    //большое орудие
             }
-            base.DrawTransport(g);            
+            base.DrawTransport(g);
         }
 
         /// <summary>
@@ -121,6 +144,12 @@ namespace WindowsFormsTank
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+
+        public override string ToString()
+        {
+            return
+           $"{base.ToString()}{separator}{DopColor.Name}{separator}{FrontShield}{separator}{LeftShield}{separator}{RightShield}{ separator}{DopWheel}{separator}{BigGun}";
         }
     }
 }

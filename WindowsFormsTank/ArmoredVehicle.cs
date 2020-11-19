@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 namespace WindowsFormsTank
 {
     public class ArmoredVehicle : Vehicle
@@ -14,6 +15,25 @@ namespace WindowsFormsTank
         /// <summary>
         /// Конструктор
         /// </summary>
+        /// 
+
+        protected readonly char separator = ';';
+
+
+        /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public ArmoredVehicle(string info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
         /// <param name="maxSpeed">Максимальная скорость</param>
         /// <param name="weight">Вес автомобиля</param>
         /// <param name="mainColor">Основной цвет кузова</param>
@@ -103,6 +123,11 @@ namespace WindowsFormsTank
 
             g.FillEllipse(brGray, _startPosX + 30, _startPosY + 140, 50, 50); //  колесо от бр.машины №1  в танке №2           
             g.FillEllipse(brGray, _startPosX + 180, _startPosY + 140, 50, 50); //  колесо от бр.машины №2  в танке №5        
+        }
+        
+        public override string ToString()
+        {
+            return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
         }
     }
 }

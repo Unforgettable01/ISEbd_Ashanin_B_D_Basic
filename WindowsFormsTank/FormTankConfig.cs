@@ -17,7 +17,6 @@ namespace WindowsFormsTank
         {
             InitializeComponent();
 
-
             panelRed.MouseDown += panelColor_MouseDown;
             panelYellow.MouseDown += panelColor_MouseDown;
             panelBrown.MouseDown += panelColor_MouseDown;
