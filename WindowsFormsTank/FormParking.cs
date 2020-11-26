@@ -136,7 +136,7 @@ namespace WindowsFormsTank
                     }
                     else
                     {
-                        MessageBox.Show(("Парковка переполнена"));
+                        MessageBox.Show("Парковка переполнена");
                     }
                 }
             }
