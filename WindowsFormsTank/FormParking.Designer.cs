@@ -144,7 +144,7 @@
             this.buttonAddVehicle.TabIndex = 9;
             this.buttonAddVehicle.Text = "Добавить ";
             this.buttonAddVehicle.UseVisualStyleBackColor = true;
-            this.buttonAddVehicle.Click += new System.EventHandler(this.buttonAddVehicle_Click);
+            this.buttonAddVehicle.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // FormParking
             // 

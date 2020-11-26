@@ -10,6 +10,9 @@ namespace WindowsFormsTank
         /// Объект от класса-парковки
         /// </summary>
         private readonly ParkingCollection parkingCollection;
+        private object eventAddVehicle;
+
+
 
         public FormParking()
         {
@@ -72,6 +75,7 @@ namespace WindowsFormsTank
             }
             parkingCollection.AddParking(textBoxNumberParking.Text);
             ReloadLevels();
+            Draw();
         }
         /// <summary>
         /// Обработка нажатия кнопки "Удалить парковку"
@@ -85,7 +89,7 @@ namespace WindowsFormsTank
                 if (MessageBox.Show($"Удалить парковку { listBoxParkings.SelectedItem.ToString()}?", "Удаление", MessageBoxButtons.YesNo,
            MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    parkingCollection.DelParking(textBoxNumberParking.Text);
+                    parkingCollection.DelParking(listBoxParkings.Text);
                     ReloadLevels();
                 }
             }
@@ -158,27 +162,17 @@ namespace WindowsFormsTank
                 Draw();
             }
         }
-
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
         }
 
-        /// <summary>
-        /// Обработка нажатия кнопки "Добавить автомобиль"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonAddVehicle_Click(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
         {
             var formTankConfig = new FormTankConfig();
             formTankConfig.AddEvent(AddVehicle);
             formTankConfig.Show();
         }
-        /// <summary>
-        /// Метод добавления машины
-        /// </summary>
-        /// <param name="vehicle"></param>
         private void AddVehicle(Vehicle vehicle)
         {
             if (vehicle != null && listBoxParkings.SelectedIndex > -1)
@@ -193,6 +187,5 @@ namespace WindowsFormsTank
                 }
             }
         }
-
     }
 }
