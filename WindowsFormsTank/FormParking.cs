@@ -47,9 +47,7 @@ namespace WindowsFormsTank
         private void Draw()
         {
             if (listBoxParkings.SelectedIndex > -1)
-            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
-             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу
-             //  listBox)
+            {
                 Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
                 Graphics gr = Graphics.FromImage(bmp);
                 parkingCollection[listBoxParkings.SelectedItem.ToString()].Draw(gr);
