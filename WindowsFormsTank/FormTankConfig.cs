@@ -11,11 +11,21 @@ namespace WindowsFormsTank
         /// </summary>
         Vehicle vehicle = null;
 
-        private event VehicleDelegate eventAddVehicle;
+        private event Action<Vehicle> eventAddVehicle;
 
         public FormTankConfig()
         {
             InitializeComponent();
+
+
+            panelRed.MouseDown += panelColor_MouseDown;
+            panelYellow.MouseDown += panelColor_MouseDown;
+            panelBrown.MouseDown += panelColor_MouseDown;
+            panelBlue.MouseDown += panelColor_MouseDown;
+            panelBlack.MouseDown += panelColor_MouseDown;
+            panelGrey.MouseDown += panelColor_MouseDown;
+            panelGreen.MouseDown += panelColor_MouseDown;
+            panelHaki.MouseDown += panelColor_MouseDown;
 
             buttonCancle.Click += (object sender, EventArgs e) => { Close(); };
         }
@@ -38,11 +48,11 @@ namespace WindowsFormsTank
         /// Добавление события
         /// </summary>
         /// <param name="ev"></param>
-        public void AddEvent(VehicleDelegate ev)
+        public void AddEvent(Action<Vehicle> ev)
         {
             if (eventAddVehicle == null)
             {
-                eventAddVehicle = new VehicleDelegate(ev);
+                eventAddVehicle = new Action<Vehicle>(ev);
             }
             else
             {
@@ -86,7 +96,7 @@ namespace WindowsFormsTank
                 e.Effect = DragDropEffects.None;
             }
         }
-        
+
 
         /// <summary>
         /// Действия при приеме перетаскиваемой информации
@@ -113,27 +123,39 @@ namespace WindowsFormsTank
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panelColor_MouseDown(object sender, MouseEventArgs e)
-        {
-            // Прописать логику вызова dragDrop для панелей, используя sender
-        }
+
         /// <summary>
         /// Проверка получаемой информации (ее типа на соответствие требуемому)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void labelBaseColor_DragEnter(object sender, DragEventArgs e)
+        /// 
+
+
+        private void labelMainColor_DragEnter(object sender, DragEventArgs e)
         {
-            // Прописать логику проверки приходящего значения на тип Color
+
+            if (e.Data.GetDataPresent(typeof(Color)))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
         /// <summary>
         /// Принимаем основной цвет
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void labelBaseColor_DragDrop(object sender, DragEventArgs e)
+        private void labelMainColor_DragDrop(object sender, DragEventArgs e)
         {
-            // Прописать логику смены базового цвета
+            if (vehicle != null)
+            {
+                vehicle.SetMainColor((Color)e.Data.GetData(typeof(Color)));
+                DrawVehicle();
+            }
         }
         /// <summary>
         /// Принимаем дополнительный цвет
@@ -142,7 +164,29 @@ namespace WindowsFormsTank
         /// <param name="e"></param>
         private void labelDopColor_DragDrop(object sender, DragEventArgs e)
         {
+
+            if (vehicle is Tank)
+            {
+                Tank Vehicle = (Tank)vehicle;
+
+                Vehicle.SetDopColor((Color)(e.Data.GetData(typeof(Color))));
+                DrawVehicle();
+            }
             // Прописать логику смены дополнительного цвета, если объект является объектом дочернего класса
         }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            eventAddVehicle?.Invoke(vehicle);
+            Close();
+        }
+        private void panelColor_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            ((Panel)sender).DoDragDrop(((Panel)sender).BackColor, DragDropEffects.Move | DragDropEffects.Copy);
+            // Прописать логику вызова dragDrop для панелей, используя sender
+        }
+
+        
     }
 }

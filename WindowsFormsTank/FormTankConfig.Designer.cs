@@ -272,21 +272,27 @@
             // 
             // labelDopColor
             // 
+            this.labelDopColor.AllowDrop = true;
             this.labelDopColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelDopColor.Location = new System.Drawing.Point(98, 26);
             this.labelDopColor.Name = "labelDopColor";
             this.labelDopColor.Size = new System.Drawing.Size(80, 69);
             this.labelDopColor.TabIndex = 9;
             this.labelDopColor.Text = "Доп.   цвет";
+            this.labelDopColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragDrop);
+            this.labelDopColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
             // 
             // labelBaseColor
             // 
+            this.labelBaseColor.AllowDrop = true;
             this.labelBaseColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labelBaseColor.Location = new System.Drawing.Point(7, 26);
             this.labelBaseColor.Name = "labelBaseColor";
             this.labelBaseColor.Size = new System.Drawing.Size(84, 69);
             this.labelBaseColor.TabIndex = 8;
             this.labelBaseColor.Text = "Основной          цвет";
+            this.labelBaseColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragDrop);
+            this.labelBaseColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
             // 
             // panelHaki
             // 
@@ -375,6 +381,7 @@
             this.buttonAdd.TabIndex = 7;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonCancle
             // 
