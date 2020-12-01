@@ -113,10 +113,10 @@ namespace WindowsFormsTank
             {
                 File.Delete(filename);
             }
-            else if (!File.Exists(filename))
-            {
-                throw new FileNotFoundException();
-            }
+            //if (!File.Exists(filename))
+            //{
+            //    throw new FileNotFoundException();
+            //}
             using (StreamWriter sw = new StreamWriter(filename, true))
             {
                 sw.Write($"ParkingCollection{Environment.NewLine}");

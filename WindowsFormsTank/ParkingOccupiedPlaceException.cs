@@ -6,20 +6,10 @@ namespace WindowsFormsTank
     [Serializable]
     internal class ParkingOccupiedPlaceException : Exception
     {
-        public ParkingOccupiedPlaceException()
+        
+        public ParkingOccupiedPlaceException() : base("Не удалось припарковать")
         {
         }
 
-        public ParkingOccupiedPlaceException(string message) : base(message)
-        {
-        }
-
-        public ParkingOccupiedPlaceException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected ParkingOccupiedPlaceException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }
