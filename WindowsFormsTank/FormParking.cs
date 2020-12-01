@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,11 +12,14 @@ namespace WindowsFormsTank
         /// </summary>
         private readonly ParkingCollection parkingCollection;
 
+        private readonly Logger logger;
+
         public FormParking()
         {
             InitializeComponent();
             parkingCollection = new ParkingCollection(pictureBoxParking.Width,
            pictureBoxParking.Height);
+            logger = LogManager.GetCurrentClassLogger();
             Draw();
         }
 
@@ -148,21 +152,45 @@ namespace WindowsFormsTank
         /// <param name="e"></param>
         private void buttonGetVehicle_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxParkingNumber.Text != "")
+            if (listBoxParkings.SelectedIndex > -1 && maskedTextBoxParkingNumber.Text != "")
             {
-                var armoredVehicle = parkingCollection[listBoxParkings.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxParkingNumber.Text);
-                if (armoredVehicle != null)
+                try
                 {
-                    FormTank form = new FormTank();
-                    form.SetArmoredVehicle(armoredVehicle);
-                    form.ShowDialog();
+                    var car =
+                   parkingCollection[listBoxParkings.SelectedItem.ToString()] -
+                   Convert.ToInt32(maskedTextBoxParkingNumber.Text);
+
+                    if (maskedTextBoxParkingNumber.Text != "")
+                    {
+                        var armoredVehicle = parkingCollection[listBoxParkings.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxParkingNumber.Text);
+                        if (armoredVehicle != null)
+                        {
+                            FormTank form = new FormTank();
+                            form.SetArmoredVehicle(armoredVehicle);
+                            form.ShowDialog();
+                            logger.Info($"Изъят транспорт {armoredVehicle} с места { maskedTextBoxParkingNumber.Text}");
+                            Draw();
+                        }
+                    }
+                 }
+                catch (ParkingNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
                 }
-                Draw();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+
         }
 
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
         {
+            logger.Info($"Перешли на парковку { listBoxParkings.SelectedItem.ToString()}" );
+
             Draw();
         }
 
@@ -185,14 +213,29 @@ namespace WindowsFormsTank
         {
             if (vehicle != null && listBoxParkings.SelectedIndex > -1)
             {
-                if ((parkingCollection[listBoxParkings.SelectedItem.ToString()]) + vehicle)
+                try
                 {
-                    Draw();
-                }
-                else
+                    if ((parkingCollection[listBoxParkings.SelectedItem.ToString()]) + vehicle)
+                    {
+                        Draw();
+                        logger.Info($"Добавлен транспорт {vehicle}");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Транспорт не удалось поставить");
+                    }
+                }                    
+                    catch (ParkingOverflowException ex)
                 {
-                    MessageBox.Show("Машину не удалось поставить");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            
             }
         }
 
@@ -200,14 +243,16 @@ namespace WindowsFormsTank
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (parkingCollection.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    parkingCollection.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат",
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -217,17 +262,24 @@ namespace WindowsFormsTank
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (parkingCollection.LoadData(openFileDialog.FileName))
+                try
                 {
+                    parkingCollection.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                    MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                     ReloadLevels();
                     Draw();
                 }
-                else
+                catch (ParkingOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

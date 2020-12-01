@@ -94,11 +94,11 @@ namespace WindowsFormsTank
         /// <param name="stream">Поток для записи</param>
         /// 
 
-        private void WriteToFile(string text, FileStream stream)
-        {
-            byte[] info = new UTF8Encoding(true).GetBytes(text);
-            stream.Write(info, 0, info.Length);
-        }
+        //private void WriteToFile(string text, FileStream stream)
+        //{
+        //    byte[] info = new UTF8Encoding(true).GetBytes(text);
+        //    stream.Write(info, 0, info.Length);
+        //}
 
 
         /// <summary>
@@ -106,90 +106,16 @@ namespace WindowsFormsTank
         /// </summary>
         /// <param name="filename">Путь и имя файла</param>
         /// <returns></returns>
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
-            //if (File.Exists(filename))
-            //{
-            //    File.Delete(filename);
-            //}
-            //using (StreamWriter fs = new StreamWriter(filename))
-            //{
-            //    fs.WriteLine($"ParkingCollection");
-            //    foreach (var level in parkingStages)
-            //    {
-            //        //Начинаем парковку
-            //        fs.WriteLine($"Parking{separator}{level.Key}");
 
-            //        ITransport vehicle = null;
-            //        for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
-            //        {
-            //            if (vehicle != null)
-            //            {
-            //                //если место не пустое
-            //                //Записываем тип машины
-            //                if (vehicle.GetType().Name == "ArmoredVehicle")
-            //                {
-            //                    fs.WriteLine($"ArmoredVehicle{separator}");
-            //                }
-            //                if (vehicle.GetType().Name == "Tank")
-            //                {
-            //                    fs.WriteLine($"Tank{separator}");
-            //                }
-            //                //Записываемые параметры
-            //                fs.WriteLine(vehicle + Environment.NewLine);
-            //            }
-            //        }
-            //    }
-            //}
-            //return true;
-
-
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            //if (File.Exists(filename))
-            //{
-            //    File.Delete(filename);
-            //}
-            //using (FileStream fs = new FileStream(filename, FileMode.Create))
-            //{
-            //    WriteToFile($"ParkingCollection{Environment.NewLine}", fs);
-            //    foreach (var level in parkingStages)
-            //    {
-            //        //Начинаем парковку
-            //        WriteToFile($"Parking{separator}{level.Key}{Environment.NewLine}",
-            //        fs);
-            //        ITransport vehicle = null;
-            //        for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
-
-            //    {
-            //            if (vehicle != null)
-            //            {
-            //                //если место не пустое
-            //                //Записываем тип машины
-            //                if (vehicle.GetType().Name == "ArmoredVehicle")
-            //                {
-            //                    WriteToFile($"Car{separator}", fs);
-            //                }
-            //                if (vehicle.GetType().Name == "Tank")
-            //                {
-            //                    WriteToFile($"Tank{separator}", fs);
-            //                }
-            //                //Записываемые параметры
-            //                WriteToFile(vehicle + Environment.NewLine, fs);
-            //            }
-            //        }
-            //    }
-            //}
-            //return true;
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///
             if (File.Exists(filename))
             {
                 File.Delete(filename);
+            }
+            else if (!File.Exists(filename))
+            {
+                throw new FileNotFoundException();
             }
             using (StreamWriter sw = new StreamWriter(filename, true))
             {
@@ -218,7 +144,7 @@ namespace WindowsFormsTank
                     }
                 }
             }
-            return true;
+
         }
 
         /// <summary>
@@ -226,14 +152,18 @@ namespace WindowsFormsTank
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             using (StreamReader sr = new StreamReader(filename))
             {
                 Vehicle vehicle = null;
-
                 string line = sr.ReadLine();
                 string key = string.Empty;
+
+                if (!File.Exists(filename))
+                {
+                    throw new FileNotFoundException();
+                }
 
                 if (line.Contains("ParkingCollection"))
                 {
@@ -264,13 +194,18 @@ namespace WindowsFormsTank
                         var result = parkingStages[key] + vehicle;
                         if (!result)
                         {
-                            return false;
+                            throw new Exception("Не удалось загрузить автомобиль на парковку");
                         }
                         line = sr.ReadLine();
                     }
-                    return true;
+
                 }
-                return false;
+                else
+                {
+                    //если нет такой записи, то это не те данные
+                    throw new Exception("Неверный формат файла");
+                }
+
             }
 
         }
