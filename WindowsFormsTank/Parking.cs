@@ -61,8 +61,8 @@ namespace WindowsFormsTank
             {
                 throw new ParkingOverflowException();
             }
-            
-           p._places.Add(armoredVehicle);
+
+            p._places.Add(armoredVehicle);
             return true;
 
         }
@@ -91,7 +91,7 @@ namespace WindowsFormsTank
         /// <param name="g"></param>
         public void Draw(Graphics g)
         {
-            
+
             DrawMarking(g);
             for (int i = 0; i < _places.Count; ++i)
             {

@@ -17,10 +17,8 @@ namespace WindowsFormsTank
         public FormParking()
         {
             InitializeComponent();
-            parkingCollection = new ParkingCollection(pictureBoxParking.Width,
-           pictureBoxParking.Height);
+            parkingCollection = new ParkingCollection(pictureBoxParking.Width, pictureBoxParking.Height);
             logger = LogManager.GetCurrentClassLogger();
-            Draw();
         }
 
 
@@ -76,6 +74,7 @@ namespace WindowsFormsTank
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            logger.Info($"Добавили парковку {textBoxNumberParking.Text}");
             parkingCollection.AddParking(textBoxNumberParking.Text);
             ReloadLevels();
         }
@@ -91,6 +90,7 @@ namespace WindowsFormsTank
                 if (MessageBox.Show($"Удалить парковку { listBoxParkings.SelectedItem.ToString()}?", "Удаление", MessageBoxButtons.YesNo,
            MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    logger.Info($"Удалили парковку { listBoxParkings.SelectedItem.ToString() }");
                     parkingCollection.DelParking(textBoxNumberParking.Text);
                     ReloadLevels();
                 }
@@ -102,49 +102,52 @@ namespace WindowsFormsTank
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonParkingArmoredVehicle_Click(object sender, EventArgs e)
-        {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                var armoredVehicle = new ArmoredVehicle(100, 1000, dialog.Color);
+        //private void buttonParkingArmoredVehicle_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog dialog = new ColorDialog();
+        //    if (dialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        var armoredVehicle = new ArmoredVehicle(100, 1000, dialog.Color);
 
-                if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
-                {
-                    Draw();
-                }
-                else
-                {
-                    MessageBox.Show("Парковка переполнена");
-                }
-            }
-        }
+        //        if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
+        //        {
+        //            Draw();
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Парковка переполнена");
+        //        }
+        //    }
+        //}
         /// <summary>
         /// Обработка нажатия кнопки "Припарковать гоночный автомобиль"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonParkingTank_Click(object sender, EventArgs e)
-        {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
-                {
-                    var armoredVehicle = new Tank(100, 1000, dialog.Color, dialogDop.Color,
-                   true, true, true, true, true);
-                    if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
-                    {
-                        Draw();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Парковка переполнена");
-                    }
-                }
-            }
-        }
+        //private void buttonParkingTank_Click(object sender, EventArgs e)
+        //{
+        //    ColorDialog dialog = new ColorDialog();
+        //    if (dialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        ColorDialog dialogDop = new ColorDialog();
+        //        if (dialogDop.ShowDialog() == DialogResult.OK)
+        //        {
+        //            var armoredVehicle = new Tank(100, 1000, dialog.Color, dialogDop.Color,
+        //           true, true, true, true, true);
+        //            if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
+        //            {
+        //                Draw();
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Парковка переполнена");
+        //            }
+        //        }
+        //    }
+        //}
+
+
+   
         /// <summary>
         /// Обработка нажатия кнопки "Забрать"
         /// </summary>
@@ -156,32 +159,25 @@ namespace WindowsFormsTank
             {
                 try
                 {
-                    var car =
-                   parkingCollection[listBoxParkings.SelectedItem.ToString()] -
-                   Convert.ToInt32(maskedTextBoxParkingNumber.Text);
-
-                    if (maskedTextBoxParkingNumber.Text != "")
+                    var vehicle =parkingCollection[listBoxParkings.SelectedItem.ToString()] -Convert.ToInt32(maskedTextBoxParkingNumber.Text);
+                    if (vehicle != null)
                     {
-                        var armoredVehicle = parkingCollection[listBoxParkings.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxParkingNumber.Text);
-                        if (armoredVehicle != null)
-                        {
-                            FormTank form = new FormTank();
-                            form.SetArmoredVehicle(armoredVehicle);
-                            form.ShowDialog();
-                            logger.Info($"Изъят транспорт {armoredVehicle} с места { maskedTextBoxParkingNumber.Text}");
-                            Draw();
-                        }
+                        FormTank form = new FormTank();
+                        form.SetArmoredVehicle(vehicle);
+                        form.ShowDialog();
+                        logger.Info($"Изъят транспорт {vehicle} с места  { maskedTextBoxParkingNumber.Text} ");
+                        Draw();
                     }
-                 }
+                }
                 catch (ParkingNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn($"{ex.Message}");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn($"{ex.Message}");
                 }
             }
 
@@ -189,7 +185,7 @@ namespace WindowsFormsTank
 
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            logger.Info($"Перешли на парковку { listBoxParkings.SelectedItem.ToString()}" );
+            logger.Info($"Перешли на парковку { listBoxParkings.SelectedItem.ToString()}");
 
             Draw();
         }
@@ -223,19 +219,22 @@ namespace WindowsFormsTank
                     else
                     {
                         MessageBox.Show("Транспорт не удалось поставить");
+                        logger.Warn("Транспорт не удалось поставить");
                     }
-                }                    
-                    catch (ParkingOverflowException ex)
+                }
+                catch (ParkingOverflowException ex)
                 {
                     MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                    logger.Warn($"{ex.Message}");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn($"{ex.Message}");
                 }
-            
+
             }
         }
 
