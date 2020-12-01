@@ -25,7 +25,7 @@ namespace WindowsFormsTank
         /// </summary>
         private void ReloadLevels()
         {
-            int index = listBoxParkings.SelectedIndex;
+            int index = listBoxParkings.SelectedIndex;           
             listBoxParkings.Items.Clear();
             for (int i = 0; i < parkingCollection.Keys.Count; i++)
             {
@@ -70,7 +70,7 @@ namespace WindowsFormsTank
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            parkingCollection.AddParking(textBoxNumberParking.Text);
+            parkingCollection.AddParking(textBoxNumberParking.Text);           
             ReloadLevels();
             Draw();
         }
@@ -164,6 +164,7 @@ namespace WindowsFormsTank
             Draw();
         }
 
+
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             var formTankConfig = new FormTankConfig();
@@ -184,5 +185,6 @@ namespace WindowsFormsTank
                 }
             }
         }
+
     }
 }
