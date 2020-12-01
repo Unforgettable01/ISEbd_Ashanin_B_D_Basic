@@ -145,38 +145,75 @@ namespace WindowsFormsTank
 
 
 
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            //if (File.Exists(filename))
+            //{
+            //    File.Delete(filename);
+            //}
+            //using (FileStream fs = new FileStream(filename, FileMode.Create))
+            //{
+            //    WriteToFile($"ParkingCollection{Environment.NewLine}", fs);
+            //    foreach (var level in parkingStages)
+            //    {
+            //        //Начинаем парковку
+            //        WriteToFile($"Parking{separator}{level.Key}{Environment.NewLine}",
+            //        fs);
+            //        ITransport vehicle = null;
+            //        for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
 
+            //    {
+            //            if (vehicle != null)
+            //            {
+            //                //если место не пустое
+            //                //Записываем тип машины
+            //                if (vehicle.GetType().Name == "ArmoredVehicle")
+            //                {
+            //                    WriteToFile($"Car{separator}", fs);
+            //                }
+            //                if (vehicle.GetType().Name == "Tank")
+            //                {
+            //                    WriteToFile($"Tank{separator}", fs);
+            //                }
+            //                //Записываемые параметры
+            //                WriteToFile(vehicle + Environment.NewLine, fs);
+            //            }
+            //        }
+            //    }
+            //}
+            //return true;
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///
             if (File.Exists(filename))
             {
                 File.Delete(filename);
             }
-            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            using (StreamWriter sw = new StreamWriter(filename, true))
             {
-                WriteToFile($"ParkingCollection{Environment.NewLine}", fs);
+                sw.Write($"ParkingCollection{Environment.NewLine}");
                 foreach (var level in parkingStages)
                 {
-                    //Начинаем парковку
-                    WriteToFile($"Parking{separator}{level.Key}{Environment.NewLine}",
-                    fs);
+                    //начинаем парковку
+                    sw.Write($"Parking{separator}{level.Key}{Environment.NewLine}");
                     ITransport vehicle = null;
                     for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
-                        
-                {
+                    {
                         if (vehicle != null)
                         {
-                            //если место не пустое
-                            //Записываем тип машины
+                            //если у нас место не пустое тогда мы записываем тип машины                   
                             if (vehicle.GetType().Name == "ArmoredVehicle")
                             {
-                                WriteToFile($"Car{separator}", fs);
+                                sw.Write($"ArmoredVehicle{separator}");
                             }
                             if (vehicle.GetType().Name == "Tank")
                             {
-                                WriteToFile($"Tank{separator}", fs);
+                                sw.Write($"Tank{separator}");
                             }
-                            //Записываемые параметры
-                            WriteToFile(vehicle + Environment.NewLine, fs);
+                            //запись параметровв
+                            sw.Write(vehicle + Environment.NewLine);
                         }
                     }
                 }
@@ -191,66 +228,52 @@ namespace WindowsFormsTank
         /// <returns></returns>
         public bool LoadData(string filename)
         {
-            if (!File.Exists(filename))
+            using (StreamReader sr = new StreamReader(filename))
             {
-                return false;
-            }
-            string bufferTextFromFile = "";
-            using (FileStream fs = new FileStream(filename, FileMode.Open))
-            {
-                byte[] b = new byte[fs.Length];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    bufferTextFromFile += temp.GetString(b);
-                }
-            }
-            bufferTextFromFile = bufferTextFromFile.Replace("\r", "");
-            var strs = bufferTextFromFile.Split('\n');
-            if (strs[0].Contains("ParkingCollection"))
-            {
-                //очищаем записи
-                parkingStages.Clear();
-            }
-            else
-            {
-                //если нет такой записи, то это не те данные
-                return false;
-            }
-            Vehicle vehicle = null;
-            string key = string.Empty;
-            for (int i = 1; i < strs.Length; ++i)
-            {
-                //идем по считанным записям
-                if (strs[i].Contains("Parking"))
-                {
+                Vehicle vehicle = null;
 
-                    //начинаем новую парковку
-                    key = strs[i].Split(separator)[1];
-                    parkingStages.Add(key, new Parking<Vehicle>(pictureWidth,
-                    pictureHeight));
-                    continue;
-                }
-                if (string.IsNullOrEmpty(strs[i]))
+                string line = sr.ReadLine();
+                string key = string.Empty;
+
+                if (line.Contains("ParkingCollection"))
                 {
-                    continue;
+                    parkingStages.Clear();
+                    line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        if (line.Contains("Parking"))
+                        {
+                            key = line.Split(separator)[1];
+                            parkingStages.Add(key, new Parking<Vehicle>(pictureWidth, pictureHeight));
+                            line = sr.ReadLine();
+                            continue;
+                        }
+                        if (string.IsNullOrEmpty(line))
+                        {
+                            line = sr.ReadLine();
+                            continue;
+                        }
+                        if (line.Split(separator)[0] == "ArmoredVehicle")
+                        {
+                            vehicle = new ArmoredVehicle(line.Split(separator)[1]);
+                        }
+                        else if (line.Split(separator)[0] == "Tank")
+                        {
+                            vehicle = new Tank(line.Split(separator)[1]);
+                        }
+                        var result = parkingStages[key] + vehicle;
+                        if (!result)
+                        {
+                            return false;
+                        }
+                        line = sr.ReadLine();
+                    }
+                    return true;
                 }
-                if (strs[i].Split(separator)[0] == "ArmoredVehicle")
-                {
-                    vehicle = new ArmoredVehicle(strs[i].Split(separator)[1]);
-                }
-                else if (strs[i].Split(separator)[0] == "Tank")
-                {
-                    vehicle = new Tank(strs[i].Split(separator)[1]);
-                }
-                var result = parkingStages[key] + vehicle;
-                if (!result)
-                {
-                    return false;
-                }
+                return false;
             }
-            return true;
+
         }
-
     }
+
 }
