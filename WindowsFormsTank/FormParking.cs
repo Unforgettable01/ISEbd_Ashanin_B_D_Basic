@@ -10,7 +10,7 @@ namespace WindowsFormsTank
         /// Объект от класса-парковки
         /// </summary>
         private readonly ParkingCollection parkingCollection;
-
+        private object eventAddVehicle;
         public FormParking()
         {
             InitializeComponent();
@@ -162,6 +162,27 @@ namespace WindowsFormsTank
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            var formTankConfig = new FormTankConfig();
+            formTankConfig.AddEvent(AddVehicle);
+            formTankConfig.Show();
+        }
+        private void AddVehicle(Vehicle vehicle)
+        {
+            if (vehicle != null && listBoxParkings.SelectedIndex > -1)
+            {
+                if ((parkingCollection[listBoxParkings.SelectedItem.ToString()]) + vehicle)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Машину не удалось поставить");
+                }
+            }
         }
     }
 }
