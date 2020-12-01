@@ -41,9 +41,11 @@
             this.pictureBoxForDisplayVehicle = new System.Windows.Forms.PictureBox();
             this.labelArmoredVehicle = new System.Windows.Forms.Label();
             this.labelTank = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxForTypeVehicle = new System.Windows.Forms.GroupBox();
             this.panelForPictureBox = new System.Windows.Forms.Panel();
             this.groupBoxForColor = new System.Windows.Forms.GroupBox();
+            this.labelDopColor = new System.Windows.Forms.Label();
+            this.labelMainColor = new System.Windows.Forms.Label();
             this.panelTestColor = new System.Windows.Forms.Panel();
             this.panelRed = new System.Windows.Forms.Panel();
             this.panelHaki = new System.Windows.Forms.Panel();
@@ -54,15 +56,13 @@
             this.panelBlack = new System.Windows.Forms.Panel();
             this.panelYellow = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelDopColor = new System.Windows.Forms.Label();
-            this.labelMainColor = new System.Windows.Forms.Label();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonCancle = new System.Windows.Forms.Button();
             this.groupBoxParametrs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_WeightVehicle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForDisplayVehicle)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxForTypeVehicle.SuspendLayout();
             this.panelForPictureBox.SuspendLayout();
             this.groupBoxForColor.SuspendLayout();
             this.SuspendLayout();
@@ -226,16 +226,16 @@
             this.labelTank.Text = "Танк";
             this.labelTank.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTank_MouseDown);
             // 
-            // groupBox1
+            // groupBoxForTypeVehicle
             // 
-            this.groupBox1.Controls.Add(this.labelArmoredVehicle);
-            this.groupBox1.Controls.Add(this.labelTank);
-            this.groupBox1.Location = new System.Drawing.Point(70, 24);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(219, 136);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBoxForTypeVehicle.Controls.Add(this.labelArmoredVehicle);
+            this.groupBoxForTypeVehicle.Controls.Add(this.labelTank);
+            this.groupBoxForTypeVehicle.Location = new System.Drawing.Point(70, 24);
+            this.groupBoxForTypeVehicle.Name = "groupBoxForTypeVehicle";
+            this.groupBoxForTypeVehicle.Size = new System.Drawing.Size(219, 136);
+            this.groupBoxForTypeVehicle.TabIndex = 4;
+            this.groupBoxForTypeVehicle.TabStop = false;
+            this.groupBoxForTypeVehicle.Text = "Вариант сборки";
             // 
             // panelForPictureBox
             // 
@@ -269,6 +269,30 @@
             this.groupBoxForColor.TabIndex = 6;
             this.groupBoxForColor.TabStop = false;
             this.groupBoxForColor.Text = "Цвета";
+            // 
+            // labelDopColor
+            // 
+            this.labelDopColor.AllowDrop = true;
+            this.labelDopColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelDopColor.Location = new System.Drawing.Point(86, 37);
+            this.labelDopColor.Name = "labelDopColor";
+            this.labelDopColor.Size = new System.Drawing.Size(50, 51);
+            this.labelDopColor.TabIndex = 9;
+            this.labelDopColor.Text = "Доп.   цвет";
+            this.labelDopColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragDrop);
+            this.labelDopColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
+            // 
+            // labelMainColor
+            // 
+            this.labelMainColor.AllowDrop = true;
+            this.labelMainColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMainColor.Location = new System.Drawing.Point(15, 37);
+            this.labelMainColor.Name = "labelMainColor";
+            this.labelMainColor.Size = new System.Drawing.Size(51, 43);
+            this.labelMainColor.TabIndex = 8;
+            this.labelMainColor.Text = "Основной        цвет";
+            this.labelMainColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragDrop);
+            this.labelMainColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
             // 
             // panelTestColor
             // 
@@ -349,30 +373,6 @@
             this.panel1.Size = new System.Drawing.Size(34, 39);
             this.panel1.TabIndex = 0;
             // 
-            // labelDopColor
-            // 
-            this.labelDopColor.AllowDrop = true;
-            this.labelDopColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelDopColor.Location = new System.Drawing.Point(86, 37);
-            this.labelDopColor.Name = "labelDopColor";
-            this.labelDopColor.Size = new System.Drawing.Size(50, 51);
-            this.labelDopColor.TabIndex = 9;
-            this.labelDopColor.Text = "Доп.   цвет";
-            this.labelDopColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelDopColor_DragDrop);
-            this.labelDopColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
-            // 
-            // labelMainColor
-            // 
-            this.labelMainColor.AllowDrop = true;
-            this.labelMainColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelMainColor.Location = new System.Drawing.Point(15, 37);
-            this.labelMainColor.Name = "labelMainColor";
-            this.labelMainColor.Size = new System.Drawing.Size(51, 43);
-            this.labelMainColor.TabIndex = 8;
-            this.labelMainColor.Text = "Основной        цвет";
-            this.labelMainColor.DragDrop += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragDrop);
-            this.labelMainColor.DragEnter += new System.Windows.Forms.DragEventHandler(this.labelMainColor_DragEnter);
-            // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(1198, 286);
@@ -402,7 +402,7 @@
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.groupBoxForColor);
             this.Controls.Add(this.panelForPictureBox);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxForTypeVehicle);
             this.Controls.Add(this.groupBoxParametrs);
             this.Name = "FormTankConfig";
             this.Text = "FormTankConfig";
@@ -411,7 +411,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_WeightVehicle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MaxSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForDisplayVehicle)).EndInit();
-            this.groupBox1.ResumeLayout(false);
+            this.groupBoxForTypeVehicle.ResumeLayout(false);
             this.panelForPictureBox.ResumeLayout(false);
             this.groupBoxForColor.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -433,7 +433,7 @@
         private System.Windows.Forms.PictureBox pictureBoxForDisplayVehicle;
         private System.Windows.Forms.Label labelArmoredVehicle;
         private System.Windows.Forms.Label labelTank;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxForTypeVehicle;
         private System.Windows.Forms.Panel panelForPictureBox;
         private System.Windows.Forms.GroupBox groupBoxForColor;
         private System.Windows.Forms.Label labelDopColor;
