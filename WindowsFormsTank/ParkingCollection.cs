@@ -112,11 +112,7 @@ namespace WindowsFormsTank
             if (File.Exists(filename))
             {
                 File.Delete(filename);
-            }
-            //if (!File.Exists(filename))
-            //{
-            //    throw new FileNotFoundException();
-            //}
+            }     
             using (StreamWriter sw = new StreamWriter(filename, true))
             {
                 sw.Write($"ParkingCollection{Environment.NewLine}");
@@ -138,7 +134,7 @@ namespace WindowsFormsTank
                             {
                                 sw.Write($"Tank{separator}");
                             }
-                            //запись параметровв
+                            //запись параметров
                             sw.Write(vehicle + Environment.NewLine);
                         }
                     }
@@ -148,7 +144,7 @@ namespace WindowsFormsTank
         }
 
         /// <summary>
-        /// Загрузка нформации по автомобилям на парковках из файла
+        /// Загрузка информации по автомобилям на парковках из файла
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
