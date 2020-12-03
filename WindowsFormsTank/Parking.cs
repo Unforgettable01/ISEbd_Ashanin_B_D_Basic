@@ -75,7 +75,7 @@ namespace WindowsFormsTank
         /// <returns></returns>
         public static T operator -(Parking<T> p, int index)
         {
-            if (index < -1 || index > p._places.Count)
+            if (index < -2 || index > p._places.Count)
             {
                 return null;
             }

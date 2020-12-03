@@ -151,7 +151,7 @@
             this.buttonAddVehicle.TabIndex = 9;
             this.buttonAddVehicle.Text = "Добавить ";
             this.buttonAddVehicle.UseVisualStyleBackColor = true;
-            this.buttonAddVehicle.Click += new System.EventHandler(this.buttonAddVehicle_Click);
+            this.buttonAddVehicle.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // menuStripSaveParking
             // 
@@ -201,6 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1762, 689);
             this.Controls.Add(this.buttonAddVehicle);
             this.Controls.Add(this.buttonDelParking);

@@ -25,11 +25,13 @@ namespace WindowsFormsTank
         private readonly int pictureWidth;
 
         /// <summary>
+
         /// Разделитель для записи информации в файл
         /// </summary>
         private readonly char separator = ':';
 
         /// <summary>
+
         /// Высота окна отрисовки
         /// </summary>
         private readonly int pictureHeight;
