@@ -172,12 +172,12 @@ namespace WindowsFormsTank
                 catch (ParkingNotFoundException ex)
                 {
                     MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    logger.Warn($"{ex.Message}");
+                    //logger.Warn($"{ex.Message}");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    logger.Warn($"{ex.Message}");
+                    MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //logger.Warn($"{ex.Message}");
                 }
             }
 
