@@ -49,9 +49,7 @@ namespace WindowsFormsTank
         private void Draw()
         {
             if (listBoxParkings.SelectedIndex > -1)
-            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
-             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу
-             //  listBox)
+            {
                 Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
                 Graphics gr = Graphics.FromImage(bmp);
                 parkingCollection[listBoxParkings.SelectedItem.ToString()].Draw(gr);
@@ -98,57 +96,6 @@ namespace WindowsFormsTank
         }
 
         /// <summary>
-        /// Обработка нажатия кнопки "Припарковать транспорт"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void buttonParkingArmoredVehicle_Click(object sender, EventArgs e)
-        //{
-        //    ColorDialog dialog = new ColorDialog();
-        //    if (dialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        var armoredVehicle = new ArmoredVehicle(100, 1000, dialog.Color);
-
-        //        if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
-        //        {
-        //            Draw();
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Парковка переполнена");
-        //        }
-        //    }
-        //}
-        /// <summary>
-        /// Обработка нажатия кнопки "Припарковать гоночный автомобиль"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void buttonParkingTank_Click(object sender, EventArgs e)
-        //{
-        //    ColorDialog dialog = new ColorDialog();
-        //    if (dialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        ColorDialog dialogDop = new ColorDialog();
-        //        if (dialogDop.ShowDialog() == DialogResult.OK)
-        //        {
-        //            var armoredVehicle = new Tank(100, 1000, dialog.Color, dialogDop.Color,
-        //           true, true, true, true, true);
-        //            if (parkingCollection[listBoxParkings.SelectedItem.ToString()] + armoredVehicle)
-        //            {
-        //                Draw();
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Парковка переполнена");
-        //            }
-        //        }
-        //    }
-        //}
-
-
-   
-        /// <summary>
         /// Обработка нажатия кнопки "Забрать"
         /// </summary>
         /// <param name="sender"></param>
@@ -159,7 +106,7 @@ namespace WindowsFormsTank
             {
                 try
                 {
-                    var vehicle =parkingCollection[listBoxParkings.SelectedItem.ToString()] -Convert.ToInt32(maskedTextBoxParkingNumber.Text);
+                    var vehicle = parkingCollection[listBoxParkings.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxParkingNumber.Text);
                     if (vehicle != null)
                     {
                         FormTank form = new FormTank();

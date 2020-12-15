@@ -171,7 +171,6 @@ namespace WindowsFormsTank
                 Vehicle.SetDopColor((Color)(e.Data.GetData(typeof(Color))));
                 DrawVehicle();
             }
-            // Прописать логику смены дополнительного цвета, если объект является объектом дочернего класса
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -183,7 +182,7 @@ namespace WindowsFormsTank
         {
 
             ((Panel)sender).DoDragDrop(((Panel)sender).BackColor, DragDropEffects.Move | DragDropEffects.Copy);
-            // Прописать логику вызова dragDrop для панелей, используя sender
+
         }
 
     }

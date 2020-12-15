@@ -88,20 +88,6 @@ namespace WindowsFormsTank
         }
 
         /// <summary>
-        /// Метод записи информации в файл
-        /// </summary>
-        /// <param name="text">Строка, которую следует записать</param>
-        /// <param name="stream">Поток для записи</param>
-        /// 
-
-        //private void WriteToFile(string text, FileStream stream)
-        //{
-        //    byte[] info = new UTF8Encoding(true).GetBytes(text);
-        //    stream.Write(info, 0, info.Length);
-        //}
-
-
-        /// <summary>
         /// Сохранение информации по автомобилям на парковках в файл
         /// </summary>
         /// <param name="filename">Путь и имя файла</param>
@@ -198,7 +184,6 @@ namespace WindowsFormsTank
                 }
                 else
                 {
-                    //если нет такой записи, то это не те данные
                     throw new Exception("Неверный формат файла");
                 }
 
