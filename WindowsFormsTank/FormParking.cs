@@ -229,5 +229,16 @@ namespace WindowsFormsTank
                 }
             }
         }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxParkings.SelectedIndex > -1)
+            {
+                parkingCollection[listBoxParkings.SelectedItem.ToString()].Sort();
+                Draw();
+                logger.Info("Сортировка уровней");
+            }
+
+        }
     }
 }
