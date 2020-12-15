@@ -2,7 +2,8 @@
 using System.Drawing;
 namespace WindowsFormsTank
 {
-    public class ArmoredVehicle : Vehicle
+    public class ArmoredVehicle : Vehicle, IEquatable<ArmoredVehicle>
+
     {
         /// <summary>
         /// Ширина отрисовки танка
@@ -60,6 +61,7 @@ namespace WindowsFormsTank
             this.armoredVehicleWidth = carWidth;
             this.armoredVehicleHeight = carHeight;
         }
+
         public override void MoveTransport(Direction direction)
         {
             float step = MaxSpeed * 100 / Weight;
@@ -124,10 +126,60 @@ namespace WindowsFormsTank
             g.FillEllipse(brGray, _startPosX + 30, _startPosY + 140, 50, 50); //  колесо от бр.машины №1  в танке №2           
             g.FillEllipse(brGray, _startPosX + 180, _startPosY + 140, 50, 50); //  колесо от бр.машины №2  в танке №5        
         }
-        
+
         public override string ToString()
         {
             return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}";
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса ArmoredVehicle
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(ArmoredVehicle other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is ArmoredVehicle armoredVehicleObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(armoredVehicleObj);
+            }
         }
     }
 }

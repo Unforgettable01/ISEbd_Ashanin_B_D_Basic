@@ -107,7 +107,7 @@ namespace WindowsFormsTank
                     //начинаем парковку
                     sw.Write($"Parking{separator}{level.Key}{Environment.NewLine}");
                     ITransport vehicle = null;
-                    for (int i = 0; (vehicle = level.Value.GetNext(i)) != null; i++)
+                    foreach (ITransport armoredVehicle in level.Value)
                     {
                         if (vehicle != null)
                         {

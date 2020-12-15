@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace WindowsFormsTank
 {
-    public class Tank : ArmoredVehicle
+    public class Tank : ArmoredVehicle, IEquatable<Tank>
     {
 
         /// Дополнительный цвет
@@ -76,6 +76,7 @@ namespace WindowsFormsTank
         }
 
 
+      
         /// <summary>
         /// Отрисовка танка
         /// </summary>
@@ -150,6 +151,56 @@ namespace WindowsFormsTank
         {
             return
            $"{base.ToString()}{separator}{DopColor.Name}{separator}{FrontShield}{separator}{LeftShield}{separator}{RightShield}{ separator}{DopWheel}{separator}{BigGun}";
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса Tank
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Tank other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (MainColor != other.MainColor)
+            {
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+            return false;
+            }
+            if (!(obj is Tank tankObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(tankObj);
+            }
         }
     }
 }
